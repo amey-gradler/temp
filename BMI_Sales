@@ -1,0 +1,65 @@
+Apex Class
+
+public class BMI {
+
+ public Double weight {get;set;}
+ public Double height {get;set;}
+ public String result {get;set;}
+
+ public BMI() {
+
+ }
+
+ public void calculate() {
+
+ height = height / 100;
+ System.debug(height);
+ if(weight > 0) {
+ if(height > 0) {
+ Double r = ((Double) weight) / ( height * height);
+ result = String.valueOf(r);
+ }
+ } else {
+ result = 'Invalid Parameters';
+ }
+
+ }
+}
+
+Vf code
+<apex:page Controller="BMI">
+<apex:form >
+
+ <apex:pageBlock >
+ <apex:pageBlockSection >
+ <apex:pageBlockSectionItem >
+ <apex:outputLabel value="Enter weight (in Kg)"/>
+ </apex:pageBlockSectionItem>
+ <apex:pageBlockSectionItem >
+ <apex:inputText value="{!weight}"/>
+ </apex:pageBlockSectionItem>
+ <apex:pageBlockSectionItem >
+ <apex:outputLabel value="Enter height (in cm)"/>
+ </apex:pageBlockSectionItem>
+ <apex:pageBlockSectionItem >
+ <apex:inputText value="{!height}"/>
+ </apex:pageBlockSectionItem>
+ <apex:pageBlockSectionItem >
+ <apex:outputLabel value="Result"/>
+ </apex:pageBlockSectionItem>
+ <apex:pageBlockSectionItem >
+ <apex:inputText value="{!result}" id="res"/><apex:actionStatus id="sts"
+startText="Finding..."/>
+ </apex:pageBlockSectionItem>
+ </apex:pageBlockSection>
+ <apex:pageBlockButtons >
+ <apex:commandButton value="Find" action="{!calculate}" reRender="res"
+status="sts"/>
+ </apex:pageBlockButtons>
+ </apex:pageBlock>
+
+</apex:form>
+
+</apex:page>
+
+
